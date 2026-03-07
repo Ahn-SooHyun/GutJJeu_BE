@@ -1,0 +1,167 @@
+apiVersion: apps/v1
+ 
+kind: Deployment
+
+metadata:
+  name: product-service
+  labels:
+    app: product-service
+
+spec:
+
+  selector:
+    matchLabels:
+      app: product-service
+
+  replicas: 1
+
+  template:
+    
+    metadata:
+      labels:
+        app: product-service
+
+    spec:
+      containers:
+        - name: product-service
+          image: lujol/product-service:v2
+          # image tag에 버전을 명시하는것이 아닌, latest를 사용하면 필요한 옵션 
+          # Always : pod가 시작될 때 항상 dokerhub에 진입해서 이미지 해시값을 획인한다고 함 
+          # imagePullPolicy: Always
+
+          
+          env:
+          - name: JDBC_URL  
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: JDBC_URL            
+          
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: DB_USER 
+            
+          - name: DB_PASSWORD
+            valueFrom: 
+              secretKeyRef:
+                name: db-secret
+                key: DB_PASSWORD 
+
+          - name: KAFKA_ENDPOINT
+            valueFrom: 
+              secretKeyRef:
+                name: kafka-secret
+                key: KAFKA_ENDPOINT 
+
+          - name: ZIPKIN_ENDPOINT
+            valueFrom: 
+              secretKeyRef:
+                name: zipkin-secret
+                key: ZIPKIN_ENDPOINT 
+
+          - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+            valueFrom: 
+              secretKeyRef:
+                name: zipkin-secret
+                key: ZIPKIN_ENDPOINT 
+
+          - name: ELASTIC_PASSWORD
+            valueFrom: 
+              secretKeyRef:
+                name: db-secret
+                key: ELASTIC_PASSWORD           
+                
+          - name: ELASTIC_URL
+            valueFrom: 
+              secretKeyRef:
+                name: db-secret
+                key: ELASTIC_URL 
+
+          - name: REDIS_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: REDIS_ENDPOINT 
+
+          - name: REDIS_PORT
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: REDIS_PORT 
+
+          - name:  PRODUCT_VIEW_COUNT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key:  PRODUCT_VIEW_COUNT_KEY
+
+          - name: PRODUCT_DIRTY_KEY
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: PRODUCT_DIRTY_KEY
+
+          - name: PRODUCT_STOCK_KEY
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: PRODUCT_STOCK_KEY 
+
+          - name: AWS_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: AWS_ACCESS_KEY
+
+          - name: AWS_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: AWS_SECRET_KEY
+
+          - name: AWS_REGION
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: AWS_REGION
+                
+          - name: AWS_BUCKET_NAME
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: AWS_BUCKET_NAME
+
+          - name:  PRESIGNED_DURATION
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key:  PRESIGNED_DURATION
+
+          - name: AWS_PRODUCT_PREFIX
+            valueFrom:
+              secretKeyRef:
+                name: aws-secret
+                key: AWS_PRODUCT_PREFIX
+
+
+          - name: EMBEDDING_BASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: ai-secret
+                key: EMBEDDING_BASE_URL
+
+          - name: EMBEDDING_PATH
+            valueFrom:
+              secretKeyRef:
+                name: ai-secret
+                key: EMBEDDING_PATH
+          ports:
+            - containerPort: 8080
+
+
+
+
+
+

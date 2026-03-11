@@ -1,0 +1,48 @@
+name: CustomerService CD
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "CustomerService/**"
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository_owner }}/gutjjeu-customerservice
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./CustomerService/gradlew
+
+      - name: Build with Gradle
+        run: cd CustomerService && ./gradlew clean build -x test
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./CustomerService
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest

@@ -6,7 +6,7 @@ on:
       - "Product/**"
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/gutjjeu-product
+  IMAGE_NAME: Ahn-SooHyun/gutjjeu-product
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

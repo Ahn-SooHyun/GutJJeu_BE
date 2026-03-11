@@ -6,7 +6,7 @@ on:
       - "Payment/**"
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/gutjjeu-payment
+  IMAGE_NAME: Ahn-SooHyun/gutjjeu-payment
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

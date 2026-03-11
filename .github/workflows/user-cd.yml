@@ -6,7 +6,7 @@ on:
       - "User/**"
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/gutjjeu-user
+  IMAGE_NAME: Ahn-SooHyun/gutjjeu-user
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

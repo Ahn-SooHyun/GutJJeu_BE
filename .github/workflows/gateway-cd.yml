@@ -6,7 +6,7 @@ on:
       - "Gateway/**"
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/gutjjeu-gateway
+  IMAGE_NAME: Ahn-SooHyun/gutjjeu-gateway
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

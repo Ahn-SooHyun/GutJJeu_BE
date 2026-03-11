@@ -6,7 +6,7 @@ on:
       - "Order/**"
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/gutjjeu-order
+  IMAGE_NAME: Ahn-SooHyun/gutjjeu-order
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

@@ -6,7 +6,7 @@ on:
       - "CustomerService/**"
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/gutjjeu-customerservice
+  IMAGE_NAME: Ahn-SooHyun/gutjjeu-customerservice
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

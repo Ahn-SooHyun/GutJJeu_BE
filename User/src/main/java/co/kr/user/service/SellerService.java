@@ -66,7 +66,7 @@ public interface SellerService {
      */
     String myDelete(Long userIdx, String authCode);
 
-    String updateProfileImage(Long userIdx, MultipartFile file) throws IOException;
+//    String updateProfileImage(Long userIdx, MultipartFile file) throws IOException;
 
-    String getMyProfileImage(Long userIdx);
+//    String getMyProfileImage(Long userIdx);
 }

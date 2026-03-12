@@ -103,10 +103,10 @@ public class ClientController {
      * @param sellerIdx 판매자 고유 식별자
      * @return 판매자 프로필 이미지의 S3 접근 가능 주소
      */
-    @PostMapping("/seller/{sellerIdx}/image")
-    public ResponseEntity<BaseResponse<String>> getSellerImage(@PathVariable Long sellerIdx) {
-        return ResponseEntity.ok(new BaseResponse<>("SUCCESS", clientService.getSellerProfileImage(sellerIdx)));
-    }
+//    @PostMapping("/seller/{sellerIdx}/image")
+//    public ResponseEntity<BaseResponse<String>> getSellerImage(@PathVariable Long sellerIdx) {
+//        return ResponseEntity.ok(new BaseResponse<>("SUCCESS", clientService.getSellerProfileImage(sellerIdx)));
+//    }
 
     /**
      * 판매자의 정산용 계좌 정보를 조회합니다.

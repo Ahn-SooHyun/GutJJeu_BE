@@ -6,7 +6,6 @@ import co.kr.user.model.entity.*;
 import co.kr.user.model.vo.PublicDel;
 import co.kr.user.model.vo.UserDel;
 import co.kr.user.service.ClientService;
-import co.kr.user.service.S3Service;
 import co.kr.user.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +31,6 @@ public class ClientServiceImpl implements ClientService {
     private final UserCardRepository userCardRepository;
     private final FileRepository fileRepository;
 
-    private final S3Service s3Service;
     private final UserQueryService userQueryService;
 
     /**
@@ -194,20 +192,20 @@ public class ClientServiceImpl implements ClientService {
      * 3. 데이터가 존재하면 해당 filePath를, 없으면 기본 경로를 선택합니다.
      * 4. 선택된 경로를 S3Service에 전달하여 최종 URL을 생성합니다.
      */
-    @Override
-    public String getSellerProfileImage(Long sellerIdx) {
-        // DB에서 활성화된 파일 정보를 조회하고, 없을 경우 기본 이미지 경로를 결정하는 비즈니스 정책 수행
-        String finalImagePath = fileRepository.findByRefTableAndRefIndexAndDel(
-                        "Seller",
-                        sellerIdx,
-                        PublicDel.ACTIVE
-                )
-                .map(File::getFilePath)
-                .orElse(DEFAULT_IMAGE);
-
-        // 결정된 경로를 바탕으로 S3에 URL 발급 요청 (Low-level 통신 위임)
-        return s3Service.getPresignedUrl(finalImagePath);
-    }
+//    @Override
+//    public String getSellerProfileImage(Long sellerIdx) {
+//        // DB에서 활성화된 파일 정보를 조회하고, 없을 경우 기본 이미지 경로를 결정하는 비즈니스 정책 수행
+//        String finalImagePath = fileRepository.findByRefTableAndRefIndexAndDel(
+//                        "Seller",
+//                        sellerIdx,
+//                        PublicDel.ACTIVE
+//                )
+//                .map(File::getFilePath)
+//                .orElse(DEFAULT_IMAGE);
+//
+//        // 결정된 경로를 바탕으로 S3에 URL 발급 요청 (Low-level 통신 위임)
+//        return s3Service.getPresignedUrl(finalImagePath);
+//    }
 
     @Override
     public List<SellerBankDTO> getSellerBankInfos(List<Long> sellerIdx) {

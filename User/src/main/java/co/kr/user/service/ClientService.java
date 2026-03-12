@@ -63,7 +63,7 @@ public interface ClientService {
      * @param sellerIdx 조회할 판매자의 PK
      * @return S3 Presigned URL
      */
-    String getSellerProfileImage(Long sellerIdx);
+//    String getSellerProfileImage(Long sellerIdx);
 
     /**
      * 여러 판매자 식별자 리스트를 받아 각 판매자의 은행 계좌 정보 목록을 조회합니다.

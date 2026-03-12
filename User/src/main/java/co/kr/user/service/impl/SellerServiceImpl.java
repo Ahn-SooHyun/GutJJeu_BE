@@ -11,7 +11,6 @@ import co.kr.user.model.dto.seller.SellerRegisterDTO;
 import co.kr.user.model.dto.seller.SellerRegisterReq;
 import co.kr.user.model.entity.*;
 import co.kr.user.model.vo.*;
-import co.kr.user.service.S3Service;
 import co.kr.user.service.SellerService;
 import co.kr.user.service.UserQueryService;
 import co.kr.user.util.*;
@@ -41,7 +40,6 @@ public class SellerServiceImpl implements SellerService {
     private final UserVerificationsRepository userVerificationsRepository;
 
     private final UserQueryService userQueryService;
-    private final S3Service s3Service;
 
     private final MailUtil mailUtil;
     private final RandomCodeUtil randomCodeUtil;
@@ -238,50 +236,50 @@ public class SellerServiceImpl implements SellerService {
         return "판매자 탈퇴가 정상 처리되었습니다.";
     }
 
-    @Override
-    @Transactional
-    public String updateProfileImage(Long userIdx, MultipartFile file) throws IOException {
-        Seller seller = sellerRepository.findByUsersIdxAndDel(userIdx, UserDel.ACTIVE)
-                .orElseThrow(() -> new IllegalArgumentException("판매자 정보를 찾을 수 없습니다."));
+//    @Override
+//    @Transactional
+//    public String updateProfileImage(Long userIdx, MultipartFile file) throws IOException {
+//        Seller seller = sellerRepository.findByUsersIdxAndDel(userIdx, UserDel.ACTIVE)
+//                .orElseThrow(() -> new IllegalArgumentException("판매자 정보를 찾을 수 없습니다."));
+//
+//        byte[] safeData = fileUtil.validateAndProcessImage(file);
+//
+//        String originName = file.getOriginalFilename();
+//        String extension = originName.substring(originName.lastIndexOf(".") + 1).toLowerCase();
+//
+//        // 경로와 파일명을 분리하여 정의
+//        String s3Path = "seller/profile/";
+//        String uuidName = UUID.randomUUID() + "." + extension;
+//
+//        // 기존 파일 Soft Delete
+//        fileRepository.findByRefTableAndRefIndexAndDel("Seller", seller.getSellerIdx(), PublicDel.ACTIVE)
+//                .ifPresent(File::markAsDeleted);
+//
+//        // S3에는 전체 경로(경로+파일명)로 업로드
+//        s3Service.putObject(safeData, s3Path + uuidName, file.getContentType());
+//
+//        // DB에는 filePath에 경로만, fileName에 UUID 파일명만 저장
+//        fileRepository.save(File.builder()
+//                .fileOrigin(originName)
+//                .fileName(uuidName)
+//                .fileType(extension)
+//                .filePath(s3Path)
+//                .refTable("Seller")
+//                .refIndex(seller.getSellerIdx())
+//                .del(PublicDel.ACTIVE)
+//                .build());
+//
+//        return "프로필 이미지가 변경되었습니다.";
+//    }
 
-        byte[] safeData = fileUtil.validateAndProcessImage(file);
-
-        String originName = file.getOriginalFilename();
-        String extension = originName.substring(originName.lastIndexOf(".") + 1).toLowerCase();
-
-        // 경로와 파일명을 분리하여 정의
-        String s3Path = "seller/profile/";
-        String uuidName = UUID.randomUUID() + "." + extension;
-
-        // 기존 파일 Soft Delete
-        fileRepository.findByRefTableAndRefIndexAndDel("Seller", seller.getSellerIdx(), PublicDel.ACTIVE)
-                .ifPresent(File::markAsDeleted);
-
-        // S3에는 전체 경로(경로+파일명)로 업로드
-        s3Service.putObject(safeData, s3Path + uuidName, file.getContentType());
-
-        // DB에는 filePath에 경로만, fileName에 UUID 파일명만 저장
-        fileRepository.save(File.builder()
-                .fileOrigin(originName)
-                .fileName(uuidName)
-                .fileType(extension)
-                .filePath(s3Path)
-                .refTable("Seller")
-                .refIndex(seller.getSellerIdx())
-                .del(PublicDel.ACTIVE)
-                .build());
-
-        return "프로필 이미지가 변경되었습니다.";
-    }
-
-    @Override
-    public String getMyProfileImage(Long userIdx) {
-        Seller seller = sellerRepository.findByUsersIdxAndDel(userIdx, UserDel.ACTIVE)
-                .orElseThrow(() -> new IllegalArgumentException("판매자 정보를 찾을 수 없습니다."));
-
-        // DB에서 경로와 파일명을 가져와서 합친 후 S3 URL 생성
-        return fileRepository.findByRefTableAndRefIndexAndDel("Seller", seller.getSellerIdx(), PublicDel.ACTIVE)
-                .map(f -> s3Service.getPresignedUrl(f.getFilePath() + f.getFileName()))
-                .orElse(s3Service.getPresignedUrl(DEFAULT_IMAGE));
-    }
+//    @Override
+//    public String getMyProfileImage(Long userIdx) {
+//        Seller seller = sellerRepository.findByUsersIdxAndDel(userIdx, UserDel.ACTIVE)
+//                .orElseThrow(() -> new IllegalArgumentException("판매자 정보를 찾을 수 없습니다."));
+//
+//        // DB에서 경로와 파일명을 가져와서 합친 후 S3 URL 생성
+//        return fileRepository.findByRefTableAndRefIndexAndDel("Seller", seller.getSellerIdx(), PublicDel.ACTIVE)
+//                .map(f -> s3Service.getPresignedUrl(f.getFilePath() + f.getFileName()))
+//                .orElse(s3Service.getPresignedUrl(DEFAULT_IMAGE));
+//    }
 }

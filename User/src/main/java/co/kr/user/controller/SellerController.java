@@ -100,29 +100,29 @@ public class SellerController {
         return ResponseEntity.ok(new BaseResponse<>("SUCCESS", sellerService.myDelete(userIdx, sellerDeleteSecondStepReq.getAuthCode())));
     }
 
-    /**
-     * 판매자 상점의 프로필 이미지를 등록하거나 기존 이미지를 수정(교체)합니다.
-     * Multipart 요청을 받아 S3 업로드 및 파일 정보 갱신을 수행합니다.
-     *
-     * @param userIdx 사용자 고유 식별자
-     * @param file 업로드할 이미지 파일
-     * @return 프로필 이미지 갱신 성공 메시지
-     * @throws IOException 파일 처리 중 예외 발생 시
-     */
-    @PutMapping(value = "/my/profile-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<BaseResponse<String>> updateProfileImage(@RequestHeader("X-USERS-IDX") Long userIdx,
-                                                                   @RequestParam("file") MultipartFile file) throws IOException {
-        return ResponseEntity.ok(new BaseResponse<>("SUCCESS", sellerService.updateProfileImage(userIdx, file)));
-    }
+//    /**
+//     * 판매자 상점의 프로필 이미지를 등록하거나 기존 이미지를 수정(교체)합니다.
+//     * Multipart 요청을 받아 S3 업로드 및 파일 정보 갱신을 수행합니다.
+//     *
+//     * @param userIdx 사용자 고유 식별자
+//     * @param file 업로드할 이미지 파일
+//     * @return 프로필 이미지 갱신 성공 메시지
+//     * @throws IOException 파일 처리 중 예외 발생 시
+//     */
+//    @PutMapping(value = "/my/profile-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<BaseResponse<String>> updateProfileImage(@RequestHeader("X-USERS-IDX") Long userIdx,
+//                                                                   @RequestParam("file") MultipartFile file) throws IOException {
+//        return ResponseEntity.ok(new BaseResponse<>("SUCCESS", sellerService.updateProfileImage(userIdx, file)));
+//    }
 
-    /**
-     * 판매자 본인의 현재 프로필 이미지 정보를 조회합니다.
-     *
-     * @param userIdx 사용자 고유 식별자
-     * @return 프로필 이미지의 S3 접근 가능 주소(URL)
-     */
-    @PostMapping("/my/profile-image")
-    public ResponseEntity<BaseResponse<String>> getMyProfileImage(@RequestHeader("X-USERS-IDX") Long userIdx) {
-        return ResponseEntity.ok(new BaseResponse<>("SUCCESS", sellerService.getMyProfileImage(userIdx)));
-    }
+//    /**
+//     * 판매자 본인의 현재 프로필 이미지 정보를 조회합니다.
+//     *
+//     * @param userIdx 사용자 고유 식별자
+//     * @return 프로필 이미지의 S3 접근 가능 주소(URL)
+//     */
+//    @PostMapping("/my/profile-image")
+//    public ResponseEntity<BaseResponse<String>> getMyProfileImage(@RequestHeader("X-USERS-IDX") Long userIdx) {
+//        return ResponseEntity.ok(new BaseResponse<>("SUCCESS", sellerService.getMyProfileImage(userIdx)));
+//    }
 }

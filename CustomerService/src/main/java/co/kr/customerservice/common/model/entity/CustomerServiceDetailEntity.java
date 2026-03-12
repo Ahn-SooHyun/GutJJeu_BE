@@ -42,7 +42,7 @@ public class CustomerServiceDetailEntity {
     @Column(name = "Content", nullable = false, columnDefinition = "MEDIUMTEXT")
     private String content;
 
-    @Column(name = "Del", nullable = false)
+    @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
     private Boolean del;
 
     @Column(name = "Created_at",  updatable = false)

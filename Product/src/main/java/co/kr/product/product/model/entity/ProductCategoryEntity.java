@@ -31,7 +31,7 @@ public class ProductCategoryEntity {
     @Column(name = "Type")
     private CategoryType type;
 
-    @Column(name = "Del")
+    @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
     private Boolean del = false;
 
     @Column(name = "Parent_IDX")

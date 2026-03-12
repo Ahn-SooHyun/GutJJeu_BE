@@ -54,8 +54,7 @@ public class SettlementHistoryEntity {
     @Column(name = "Created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "Del", nullable = false)
-    @ColumnDefault("0")
+    @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
     private Boolean del = false;
 
     @Builder

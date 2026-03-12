@@ -46,8 +46,7 @@ public class OrderItemEntity {
     @Column(name = "Quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "Del", nullable = false)
-    @ColumnDefault("0")
+    @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
     private Boolean del = false;
 
     @Builder

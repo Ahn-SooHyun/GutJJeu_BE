@@ -62,8 +62,7 @@ public class CustomerServiceEntity {
     @ColumnDefault("0")
     private Boolean isPinned;
 
-    @Column(name = "Del")
-    @ColumnDefault("0")
+    @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
     private Boolean del;
 
     @Column(name = "Users_IDX", nullable = false)

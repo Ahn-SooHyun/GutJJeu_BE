@@ -59,8 +59,7 @@ public class ProductOptionEntity {
     @Column(name = "Updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "Del", nullable = false)
-    @ColumnDefault("0")
+    @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
     private Boolean del = false;
 
 

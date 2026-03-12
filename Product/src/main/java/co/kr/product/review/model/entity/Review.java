@@ -1,5 +1,6 @@
 package co.kr.product.review.model.entity;
 
+import co.kr.product.common.vo.PublicDel;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -43,9 +44,8 @@ public class Review {
     @Column(name = "Updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "Del", nullable = false)
-    @ColumnDefault("0")
-    private Boolean del;
+    @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
+    private PublicDel del;
 
     public Review(Long productsIdx, Long usersIdx, Long ordersItemIdx, Integer evaluation, String content) {
         this.productsIdx = productsIdx;
@@ -53,7 +53,7 @@ public class Review {
         this.ordersItemIdx = ordersItemIdx;
         this.evaluation = evaluation;
         this.content = content;
-        this.del = false;
+        this.del = PublicDel.ACTIVE;
     }
 
     public void update(Integer evaluation, String content) {
@@ -62,7 +62,7 @@ public class Review {
     }
 
     public void softDelete() {
-        this.del = true;
+        this.del = PublicDel.DELETED;
     }
 }
 

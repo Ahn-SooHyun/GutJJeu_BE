@@ -47,7 +47,7 @@ public class CustomerServiceEntity {
     @Column(name = "Title", nullable = false, length = 200)
     private String title;
 
-    @Column(name = "Is_Private", nullable = false)
+    @Column(name = "Is_Private", nullable = false, columnDefinition = "TINYINT(1)")
     @ColumnDefault("0")
     private Boolean isPrivate;
 
@@ -58,8 +58,7 @@ public class CustomerServiceEntity {
     @Column(name = "Published_at")
     private LocalDateTime publishedAt;
 
-    @Column(name = "Is_Pinned", nullable = false)
-    @ColumnDefault("0")
+    @Column(name = "Is_Pinned", nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean isPinned;
 
     @Column(name = "Del", nullable = false, columnDefinition = "TINYINT")
